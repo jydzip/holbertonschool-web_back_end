@@ -9,7 +9,11 @@ async def wait_n(n: int, max_delay: int) -> list[float]:
     """
         Run `wait_random` `n` times concurrently, with a maximum delay of `max_delay`.
     """
-    tasks = await asyncio.gather(
-        [await wait_random(max_delay) for _ in range(n)]
-    )
-    return sorted(tasks)
+    tasks = [wait_random(max_delay) for _ in range(n)]
+    delays = []
+    
+    for task in asyncio.as_completed(tasks):
+        delay = await task
+        delays.append(delay)
+    
+    return delays
