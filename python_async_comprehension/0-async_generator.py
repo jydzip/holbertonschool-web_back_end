@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Async Generator"""
 
 async def async_generator():
     """Yield a random number between 0 and 10 every 1 second."""
