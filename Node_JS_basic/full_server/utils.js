@@ -17,14 +17,13 @@ function readDatabase(path) {
 
       students.shift();
 
-      for (const student of students) {
-        const cols = student.split(',');
-        const field = cols[3];
-        if (!fields[field]) {
-          fields[field] = [];
+      students.forEach((student) => {
+        const studentInfo = student.split(',');
+        if (!fields[studentInfo[3]]) {
+          fields[studentInfo[3]] = [];
         }
-        fields[field].push(cols[0]);
-      }
+        fields[studentInfo[3]].push(studentInfo[0]);
+      });
 
       resolve(fields);
     });
