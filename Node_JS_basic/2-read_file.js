@@ -2,26 +2,23 @@ const fs = require('fs');
 
 function countStudents(path) {
     try {
-        const data = fs.readFileSync(path, 'utf8').split('\r\n');
-        const fields = {};
-        const students = [];
-        for (const i of data) {
-            if (i) {
-                students.push(i.split(','));
-            }
-        }
+        const data = fs.readFileSync(path, 'utf8');
 
-        const count = students.length - 1;
+        const fields = {};
+        const students = data.split('\n').filter((student) => student.trim() !== '');
+        students.shift();
+
+        const count = students.length;
         console.log(`Number of students: ${count}`);
 
-        for (const i of students) {
-            if (!fields[i[3]]) {
-                fields[i[3]] = [];
+        for (const student of students) {
+            const cols = student.split(',');
+            const field = cols[3];
+            if (!fields[field]) {
+                fields[field] = [];
             }
-            fields[i[3]].push(i[0]);
+            fields[field].push(cols[0]);
         }
-
-        delete fields.field;
 
         for (const i of Object.keys(fields)) {
             console.log(`Number of students in ${i}: ${fields[i].length}. List: ${fields[i].join(', ')}`);
