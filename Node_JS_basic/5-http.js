@@ -1,6 +1,8 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
 
+const port = 1245;
+
 const app = http.createServer((req, res) => {
     if (req.url === '/') {
         res.statusCode = 200;
@@ -27,6 +29,10 @@ const app = http.createServer((req, res) => {
         res.setHeader('Content-Type', 'text/plain');
         res.end('Not found.');
     }
+});
+
+app.listen(port, () => {
+    console.log(`Server listen on port ${port}`);
 });
 
 module.exports = app;
