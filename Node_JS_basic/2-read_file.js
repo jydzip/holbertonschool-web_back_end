@@ -6,6 +6,10 @@ function countStudents(path) {
 
         const fields = {};
         const students = data.split('\n').filter((student) => student.trim() !== '');
+        if (students.length === 0) {
+            throw new Error('Cannot load the database');
+        }
+
         students.shift();
 
         const count = students.length;
