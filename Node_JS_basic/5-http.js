@@ -16,12 +16,10 @@ const app = http.createServer((req, res) => {
 
         countStudents(process.argv[2])
             .then((data) => {
-                res.write(data);
-                res.end();
+                res.end(data);
             })
             .catch((error) => {
-                res.write(error.message);
-                res.end();
+                res.end(error.message);
             });
     }
     else {
