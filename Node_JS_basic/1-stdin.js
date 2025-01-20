@@ -1,15 +1,12 @@
-process.stdout.write('Welcome to Holberton School, what is your name?\n');
+// 1-stdin.js
 
-// Listen for user input
+console.log('Welcome to Holberton School, what is your name?');
+
 process.stdin.on('data', (data) => {
-    const name = data.toString().trim(); // Convert input to string and trim whitespace
-    console.log(`Your name is: ${name}`);
-    process.stdout.write('This important software is now closing\n');
-    process.exit(); // Exit the process after displaying the closing message
+  const name = data.toString().trim();
+  console.log(`Your name is: ${name}`);
 });
 
-// Handle program exit gracefully
-process.on('SIGINT', () => {
-    process.stdout.write('\nThis important software is now closing\n');
-    process.exit();
+process.stdin.on('end', () => {
+  console.log('This important software is now closing');
 });
