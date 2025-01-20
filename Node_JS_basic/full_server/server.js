@@ -8,7 +8,7 @@ const app = express();
 app.use('/', router);
 
 app.listen(port, () => {
-    console.log(`Server listen on port ${port}`);
+  console.log(`Server listen on port ${port}`);
 });
 
 export default app;

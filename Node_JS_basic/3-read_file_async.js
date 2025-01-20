@@ -2,41 +2,41 @@
 const fs = require('fs');
 
 function countStudents(path) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf-8', (err, data) => {
-            if (err) {
-                reject(new Error('Cannot load the database'));
-                return;
-            }
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf-8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+        return;
+      }
 
-            const fields = {};
-            const students = data.split('\n').filter((student) => student.trim() !== '');
-            if (students.length === 0) {
-                reject(new Error('Cannot load the database'));
-                return;
-            }
+      const fields = {};
+      const students = data.split('\n').filter((student) => student.trim() !== '');
+      if (students.length === 0) {
+        reject(new Error('Cannot load the database'));
+        return;
+      }
 
-            students.shift();
+      students.shift();
 
-            const count = students.length;
-            console.log(`Number of students: ${count}`);
+      const count = students.length;
+      console.log(`Number of students: ${count}`);
 
-            for (const student of students) {
-                const cols = student.split(',');
-                const field = cols[3];
-                if (!fields[field]) {
-                    fields[field] = [];
-                }
-                fields[field].push(cols[0]);
-            }
+      for (const student of students) {
+        const cols = student.split(',');
+        const field = cols[3];
+        if (!fields[field]) {
+          fields[field] = [];
+        }
+        fields[field].push(cols[0]);
+      }
 
-            for (const i of Object.keys(fields)) {
-                console.log(`Number of students in ${i}: ${fields[i].length}. List: ${fields[i].join(', ')}`);
-            }
+      for (const i of Object.keys(fields)) {
+        console.log(`Number of students in ${i}: ${fields[i].length}. List: ${fields[i].join(', ')}`);
+      }
 
-            resolve();
-        });
+      resolve();
     });
+  });
 }
 
 module.exports = countStudents;
