@@ -1,11 +1,11 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
-function countStudents(path) {
+async function countStudents(path) {
     try {
-        const data = fs.readFileSync(path, 'utf8').split('\r\n');
+        const data = await fs.readFile(path, 'utf8');
         const fields = {};
         const students = [];
-        for (const i of data) {
+        for (const i of data.split('\r\n')) {
             if (i) {
                 students.push(i.split(','));
             }
@@ -28,6 +28,7 @@ function countStudents(path) {
         }
     }
     catch (error) {
+        console.log(error)
         throw new Error('Cannot load the database');
     }
 }
