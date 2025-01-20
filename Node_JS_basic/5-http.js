@@ -48,6 +48,12 @@ const app = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
 
+    if (process.argv.length !== 3) {
+      res.statusCode = 500;
+      res.end('Cannot load the database');
+      return;
+    }
+
     try {
       countStudents(process.argv[2])
         .then((response) => {
