@@ -51,7 +51,7 @@ const app = http.createServer((req, res) => {
     try {
       countStudents(process.argv[2])
         .then((response) => {
-          res.end(`This is the list of our students\n${response}`);
+          res.end(`This is the list of our students\n${response}\n`);
         })
         .catch((error) => {
           res.statusCode = 500;
