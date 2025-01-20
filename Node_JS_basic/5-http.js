@@ -11,11 +11,6 @@ function countStudents(path) {
       }
 
       const students = data.split('\n').filter((student) => student.trim() !== '');
-      if (students.length === 0) {
-        reject(new Error('Cannot load the database'));
-        return;
-      }
-
       students.shift();
 
       let response = `Number of students: ${students.length}\n`;

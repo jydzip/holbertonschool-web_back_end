@@ -45,18 +45,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', (req, res) => {
-  if (process.argv.length !== 3) {
-    res.status(500).send('Cannot load the database');
-    return;
+  try {
+    countStudents(process.argv[2])
+      .then((response) => {
+        res.send(`This is the list of our students\n${response}`);
+      })
+      .catch((error) => {
+        res.status(500).send(error.message);
+      });
+  } catch (error) {
+    res.status(500).send(error.message);
   }
-
-  countStudents(process.argv[2])
-    .then((response) => {
-      res.send(`This is the list of our students\n${response}`);
-    })
-    .catch(() => {
-      res.status(500).send('Cannot load the database');
-    });
 });
 
 app.listen(port, () => {
