@@ -18,8 +18,9 @@ function countStudents(path) {
 
       students.shift();
 
-      const count = students.length;
-      console.log(`Number of students: ${count}`);
+      let response = `Number of students: ${students.length}`;
+      console.log(response);
+      response += '\n';
 
       for (const student of students) {
         const cols = student.split(',');
@@ -31,10 +32,12 @@ function countStudents(path) {
       }
 
       for (const i of Object.keys(fields)) {
-        console.log(`Number of students in ${i}: ${fields[i].length}. List: ${fields[i].join(', ')}`);
+        const responseField = `Number of students in ${i}: ${fields[i].length}. List: ${fields[i].join(', ')}`;
+        response += `${responseField}\n`;
+        console.log(responseField);
       }
 
-      resolve();
+      resolve(response);
     });
   });
 }
