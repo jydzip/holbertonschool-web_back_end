@@ -13,19 +13,14 @@ const app = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
 
-    try {
-      countStudents(process.argv[2])
-        .then((response) => {
-          res.end(`This is the list of our students\n${response}`);
-        })
-        .catch((error) => {
-          res.statusCode = 500;
-          res.end(error.message);
-        });
-    } catch (error) {
-      res.statusCode = 500;
-      res.end(error.message);
-    }
+    countStudents(process.argv[2])
+      .then((response) => {
+        res.end(`This is the list of our students\n${response}`);
+      })
+      .catch((error) => {
+        res.statusCode = 500;
+        res.end(error.message);
+      });
   } else {
     res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain');
