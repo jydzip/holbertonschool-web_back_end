@@ -36,6 +36,13 @@ const app = http.createServer(async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
+    if (process.argv.length < 3) {
+      res.statusCode = 400;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('Cannot load the database');
+      return;
+    }
+
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
 
