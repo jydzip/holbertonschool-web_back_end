@@ -2,6 +2,12 @@
 const http = require('http');
 const fs = require('fs').promises;
 
+const databasePath = process.argv[2];
+if (!databasePath) {
+  console.error('Usage: node 5-http.js <database.csv>');
+  process.exit(1);
+}
+
 const countStudents = async (path) => {
   try {
     const data = await fs.readFile(path, 'utf8');
@@ -36,18 +42,11 @@ const app = http.createServer(async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    if (process.argv.length < 3) {
-      res.statusCode = 400;
-      res.setHeader('Content-Type', 'text/plain');
-      res.end('Cannot load the database');
-      return;
-    }
-
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
 
     try {
-      const response = await countStudents(process.argv[2]);
+      const response = await countStudents(databasePath);
       res.end(`This is the list of our students\n${response}`);
     } catch (error) {
       res.statusCode = 500;
